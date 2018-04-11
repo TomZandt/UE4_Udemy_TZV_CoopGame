@@ -7,6 +7,7 @@
 #include "SCharacter.generated.h"
 
 class UCameraComponent;
+class USpringArmComponent;
 
 UCLASS()
 class COOPGAME_API ASCharacter : public ACharacter
@@ -23,17 +24,23 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-
 	// Call to move the player in the forward axis by the incoming value
 	void MoveForward(float Value);
 
 	// Call to move the player in the right axis by the incoming value
 	void MoveRight(float Value);
 
-
-	// Create a pointer for the character camera component
+	// Create a pointer for the characters camera component
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	UCameraComponent* pCameraComponent;
+
+	// Create a pointer for the characters spring arm component
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	USpringArmComponent* pSpringArmComponent;
+
+	// Create a variable to offset the "SpringArmComponent"
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	FVector SpringArmComponentOffset;
 
 
 public:	

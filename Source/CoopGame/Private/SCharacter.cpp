@@ -2,6 +2,7 @@
 
 #include "SCharacter.h"
 #include "Camera/CameraComponent.h"
+#include "GameFramework/SpringArmComponent.h"
 
 // ********************************************************************************************************
 // Sets default values
@@ -10,11 +11,26 @@ ASCharacter::ASCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	// Assign the pointer to a new "UCameraComponent"
+	// Assign the pointer to a new "SpringArmComponent" instance
+	pSpringArmComponent = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComponent"));
+
+	// Use the pawns rotation to rotate the spring arm
+	pSpringArmComponent->bUsePawnControlRotation = true;
+
+	// Make the "SpringArmComponent" a child of the characters root component
+	pSpringArmComponent->SetupAttachment(RootComponent);
+
+	// Add default "SpringArmComponent" offset
+	SpringArmComponentOffset = { 0.0f, 0.0f, 50.0f };
+
+	// Offset the "SpringArmComponent" to be head height
+	pSpringArmComponent->AddLocalOffset(SpringArmComponentOffset);
+
+	// Assign the pointer to a new "UCameraComponent" instance
 	pCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
 
-	// Use the pawns rotation to rotate the camera
-	pCameraComponent->bUsePawnControlRotation = true;
+	// Make the "CameraComponent" a child of the "SpringArmComponent"
+	pCameraComponent->SetupAttachment(pSpringArmComponent);
 }
 
 // ********************************************************************************************************

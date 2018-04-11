@@ -19,6 +19,12 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	// Call to move the player in the forward axis by the incoming value
+	void MoveForward(float Value);
+
+	// Call to move the player in the right axis by the incoming value
+	void MoveRight(float Value);
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

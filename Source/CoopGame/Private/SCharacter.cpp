@@ -51,5 +51,11 @@ void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 	// Bind the "MoveRight" axis to this and call MoveRight function
 	PlayerInputComponent->BindAxis("MoveRight", this, &ASCharacter::MoveRight);
+
+	// Bind the "LookUp" axis to this and call the inherited AddControllerPitchInput
+	PlayerInputComponent->BindAxis("LookUp", this, &ASCharacter::AddControllerPitchInput);
+
+	// Bind the "Turn" axis to this and call the inherited AddControllerYawInput
+	PlayerInputComponent->BindAxis("Turn", this, &ASCharacter::AddControllerYawInput);
 }
 

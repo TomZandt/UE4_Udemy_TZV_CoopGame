@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "SCharacter.h"
+#include "Camera/CameraComponent.h"
 
 // ********************************************************************************************************
 // Sets default values
@@ -8,6 +9,12 @@ ASCharacter::ASCharacter()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
+	// Assign the pointer to a new "UCameraComponent"
+	pCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
+
+	// Use the pawns rotation to rotate the camera
+	pCameraComponent->bUsePawnControlRotation = true;
 }
 
 // ********************************************************************************************************

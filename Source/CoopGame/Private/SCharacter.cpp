@@ -3,6 +3,7 @@
 #include "SCharacter.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "GameFramework/PawnMovementComponent.h"
 
 // ********************************************************************************************************
 // Sets default values
@@ -31,6 +32,9 @@ ASCharacter::ASCharacter()
 
 	// Make the "CameraComponent" a child of the "SpringArmComponent"
 	pCameraComponent->SetupAttachment(pSpringArmComponent);
+
+	// Tell UE4 that the character is allowed to crouch
+	GetMovementComponent()->GetNavAgentPropertiesRef().bCanCrouch = true;
 }
 
 // ********************************************************************************************************
@@ -57,6 +61,22 @@ void ASCharacter::MoveRight(float Value)
 }
 
 // ********************************************************************************************************
+// Call to begin crouch
+void ASCharacter::BeginCrouch()
+{
+	// Call inherited crouch function
+	Crouch();
+}
+
+// ********************************************************************************************************
+// Call to end crouch
+void ASCharacter::EndCrouch()
+{
+	// Call inherited un crouch function
+	UnCrouch();
+}
+
+// ********************************************************************************************************
 // Called every frame
 void ASCharacter::Tick(float DeltaTime)
 {
@@ -80,5 +100,11 @@ void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 	// Bind the "Turn" axis to this and call the inherited AddControllerYawInput
 	PlayerInputComponent->BindAxis("Turn", this, &ASCharacter::AddControllerYawInput);
+
+	// Bind the "Crouch" input to this and call "BeginCrouch" when pressed
+	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &ASCharacter::BeginCrouch);
+
+	// Bind the "Crouch" input to this and call "EndCrouch" when released
+	PlayerInputComponent->BindAction("Crouch", IE_Released, this, &ASCharacter::EndCrouch);
 }
 

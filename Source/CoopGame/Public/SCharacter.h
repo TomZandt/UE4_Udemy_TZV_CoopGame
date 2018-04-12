@@ -30,6 +30,12 @@ protected:
 	// Call to move the player in the right axis by the incoming value
 	void MoveRight(float Value);
 
+	// Call to begin crouch
+	void BeginCrouch();
+
+	// Call to end crouch
+	void EndCrouch();
+
 	// Create a pointer for the characters camera component
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	UCameraComponent* pCameraComponent;
@@ -41,7 +47,6 @@ protected:
 	// Create a variable to offset the "SpringArmComponent"
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 	FVector SpringArmComponentOffset;
-
 
 public:	
 

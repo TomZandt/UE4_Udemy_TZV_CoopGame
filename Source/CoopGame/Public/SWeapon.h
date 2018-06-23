@@ -25,6 +25,10 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	USkeletalMeshComponent* pSkeletalMeshComponent;
 
+	// Create a function to fire the gun
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+	void Fire();
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

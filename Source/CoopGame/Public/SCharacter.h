@@ -55,4 +55,7 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	// Override "GetPawnViewLocation" to return the position of the camera
+	virtual FVector GetPawnViewLocation() const override;
 };
